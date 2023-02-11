@@ -2,7 +2,6 @@ using System;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading;
-using System.Xml.Linq;
 using NUnit.Framework;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
@@ -11,7 +10,7 @@ using OpenQA.Selenium.Support.UI;
 namespace WebAddressbookTests
 {
     [TestFixture]
-    public class GroupCreationTests
+    public class ContactCreationTests
     {
         private IWebDriver driver;
         private StringBuilder verificationErrors;
@@ -22,7 +21,7 @@ namespace WebAddressbookTests
         public void SetupTest()
         {
             driver = new ChromeDriver();
-            baseURL = "http://localhost/addressbook";
+            baseURL = "http://localhost/addressbook/";
             verificationErrors = new StringBuilder();
         }
 
@@ -41,67 +40,62 @@ namespace WebAddressbookTests
         }
 
         [Test]
-        public void GroupCreationTest()
+        public void ContactCreationTest()
         {
-            OpenHomePage();
-            // Передаем не два значения вместе, а один объект
+            OpenHonePage();
             Login(new AccountData("admin", "secret"));
-            GoToGroupsPage();
-            InitGroupCreation();
-            GroupData group = new GroupData("aaa");
-            group.Header = "ddd";
-            group.Footer = "ccc";
-            FillGroupForm((group));
-            SubmitGroupCreation();
-            ReturnToGroupsPage();
-
+            GoToContactsPage();
+            // Передаем объект
+            // Констурктор с большим количесвом параметров делать  плохо. 
+            // Поэтому имеет смысл обойтись без конструктара
+            ContactData contact = new ContactData("Lev", "Tolstoy");
+            contact.Lastname = "Nikolaevish";
+            FillContactForm(contact);
+            SubmitContactCreation();
+            ReturnHomePage();
         }
 
-        private void ReturnToGroupsPage()
+        private void ReturnHomePage()
         {
-            driver.FindElement(By.LinkText("group page")).Click();
+            driver.FindElement(By.LinkText("home page")).Click();
         }
 
-        private void SubmitGroupCreation()
-        {       
-            driver.FindElement(By.Name("submit")).Click();
-        }
-
-        private void FillGroupForm(GroupData group)
+        private void SubmitContactCreation()
         {
-            // Передаем информацию не как набор полей, а как объект
-            driver.FindElement(By.Name("group_name")).Clear();
-            driver.FindElement(By.Name("group_name")).SendKeys(group.Name);
-            driver.FindElement(By.Name("group_header")).Clear();
-            driver.FindElement(By.Name("group_header")).SendKeys(group.Header);
-            driver.FindElement(By.Name("group_footer")).Clear();
-            driver.FindElement(By.Name("group_footer")).SendKeys(group.Footer);
-
+            driver.FindElement(By.XPath("//div[@id='content']/form/input[21]")).Click();
         }
 
-        private void InitGroupCreation()
+        private void FillContactForm(ContactData contact)
         {
-            driver.FindElement(By.Name("new")).Click();
+            driver.FindElement(By.Name("firstname")).Clear();
+            driver.FindElement(By.Name("firstname")).SendKeys(contact.Firstname);
+            driver.FindElement(By.Name("middlename")).Clear();
+            driver.FindElement(By.Name("middlename")).SendKeys(contact.Middleame);
+            driver.FindElement(By.Name("lastname")).Clear();
+            driver.FindElement(By.Name("lastname")).SendKeys(contact.Lastname);
+            //driver.FindElement(By.Name("nickname")).Clear();
+            //driver.FindElement(By.Name("nickname")).SendKeys("Lev");
+            //driver.FindElement(By.Name("company")).Clear();
+            //driver.FindElement(By.Name("company")).SendKeys("Leksika");
+            //driver.FindElement(By.Name("address")).Clear();
+            //driver.FindElement(By.Name("address")).SendKeys("Moscow");
         }
 
-        private void GoToGroupsPage()
+        private void GoToContactsPage()
         {
-            driver.FindElement(By.LinkText("groups")).Click();
+            driver.FindElement(By.LinkText("add new")).Click();
         }
 
-
-        // Login принимает один параметр типа AccountData
-        private void Login(AccountData account)
+        private void Login( AccountData account)
         {
             driver.FindElement(By.Name("user")).Clear();
-            // Будут вводиться в поля значения свойств этого объекта
             driver.FindElement(By.Name("user")).SendKeys(account.Username);
             driver.FindElement(By.Name("pass")).Clear();
-            driver.FindElement(By.Name("pass")).SendKeys(account.Password);
+            driver.FindElement(By.Name("pass")).SendKeys(account.Password); ;
             driver.FindElement(By.XPath("//input[@value='Login']")).Click();
         }
 
-        private void OpenHomePage()
+        private void OpenHonePage()
         {
             driver.Navigate().GoToUrl(baseURL);
         }
