@@ -7,14 +7,12 @@ using System.Threading.Tasks;
 namespace WebAddressbookTests
 {
     // Класс содержит инфомацию об имени
-    class GroupData
+    public class GroupData
     {
         private string name;
         private string header = "";
         private string footer = "";
 
-        // Конструктор
-        // Один коструктор останется для обратной совместимости, чтобы старый код не сломался 
         public GroupData(string name)
 
         {
