@@ -38,15 +38,15 @@ namespace WebAddressbookTests
         {
             get
             {
-                return password;          
+                return password;
             }
             set
             {
                 password = value;
             }
 
-}
+        }
+
+    }
 
 }
-
-     }

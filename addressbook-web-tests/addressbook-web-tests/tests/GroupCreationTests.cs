@@ -8,31 +8,32 @@ using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Support.UI;
 
+
 namespace WebAddressbookTests
 {
     [TestFixture]
     public class GroupCreationTests : TestBase
     {
-        
-        
+
+
 
         [Test]
         public void GroupCreationTest()
         {
-            OpenHomePage();
+            app.Navigator.OpenHomePage();
             // Передаем не два значения вместе, а один объект
-            Login(new AccountData("admin", "secret"));
-            GoToGroupsPage();
-            InitGroupCreation();
+            app.Auth.Login(new AccountData("admin", "secret"));
+            app.Navigator.GoToGroupsPage();
+            app.Groups.InitGroupCreation();
             GroupData group = new GroupData("aaa");
             group.Header = "ddd";
             group.Footer = "ccc";
-            FillGroupForm(group);
-            SubmitGroupCreation();
-            ReturnToGroupsPage();
+            app.Groups.FillGroupForm(group);
+            app.Groups.SubmitGroupCreation();
+            app.Groups.ReturnToGroupsPage();
 
         }
 
-        }
     }
+}
 

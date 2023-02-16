@@ -24,7 +24,8 @@ namespace WebAddressbookTests
 
 
         {
-            get {
+            get
+            {
 
                 return name;
             }
@@ -48,21 +49,21 @@ namespace WebAddressbookTests
             }
 
         }
-        public string Footer 
+        public string Footer
         {
-            get 
+            get
             {
                 return footer;
             }
-            set 
+            set
             {
                 footer = value;
             }
-            
+
         }
 
     }
- }
+}
 
-    
+
 
