@@ -10,7 +10,7 @@ namespace WebAddressbookTests
     {
         private string firstname;
         private string middlename;
-        // Значение по умолчанию, дефортное значение, путсое
+        // Значения по умолчанию - пусто
         private string lastname = "";
         private string nickname = "";
         private string photo = "";

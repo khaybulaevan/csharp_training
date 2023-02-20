@@ -7,21 +7,44 @@ using System.Threading.Tasks;
 
 namespace WebAddressbookTests
 {
-    public class ContactHelper
+    public class ContactHelper : HelperBase
     {
-        private IWebDriver driver;
-        public ContactHelper(IWebDriver driver)
+
+        public ContactHelper(ApplicationManager manager) 
+            : base(manager)
         {
-            this.driver = driver;
+        
+        }
+
+        public ContactHelper Create(ContactData contact)
+         {
+            manager.Navigator.GoToContactsPage();
+            FillContactForm(contact);
+            SubmitContactCreation();
+            ReturnHomePage();
+            return this;
+
+        }
+
+        public ContactHelper Remove()
+        {
+            SelectContact();
+            RemoveContact();
+            return this;
+
+        }
+
+        public ContactHelper Modify()
+        {
+            SelectContactToModify();
+            ContactModify();
+            ReturnHomePage();
+            return this;
+
         }
 
 
-        public void GoToContactsPage()
-        {
-            driver.FindElement(By.LinkText("add new")).Click();
-        }
-
-        public void FillContactForm(ContactData contact)
+        public ContactHelper FillContactForm(ContactData contact)
         {
             driver.FindElement(By.Name("firstname")).Clear();
             driver.FindElement(By.Name("firstname")).SendKeys(contact.Firstname);
@@ -29,16 +52,55 @@ namespace WebAddressbookTests
             driver.FindElement(By.Name("middlename")).SendKeys(contact.Middleame);
             driver.FindElement(By.Name("lastname")).Clear();
             driver.FindElement(By.Name("lastname")).SendKeys(contact.Lastname);
+            return this;
 
         }
 
-        public void SubmitContactCreation()
+        public ContactHelper SubmitContactCreation()
         {
-            driver.FindElement(By.XPath("//div[@id='content']/form/input[21]")).Click();
+            driver.FindElement(By.XPath("//input[@value='Enter']")).Click();
+            return this;
         }
-        public void ReturnHomePage()
+        public ContactHelper ReturnHomePage()
         {
             driver.FindElement(By.LinkText("home page")).Click();
+            return this;
+        }
+
+        public ContactHelper SelectContact()
+
+        {
+           driver.FindElement(By.XPath("//div[4]/form[2]/table/tbody/tr[2]/td[1]/input")).Click();
+            return this;
+        }
+
+        public ContactHelper RemoveContact()
+
+        {
+            driver.FindElement(By.XPath("//input[@value='Delete']")).Click();
+            driver.SwitchTo().Alert().Accept();
+            return this;
+
+        }
+
+
+        private ContactHelper SelectContactToModify()
+
+        {
+            driver.FindElement(By.XPath("//img[@alt='Edit']")).Click();
+            return this;
+        }
+
+
+        private ContactHelper ContactModify()
+
+        {
+
+            driver.FindElement(By.Name("address")).Clear();
+            driver.FindElement(By.Name("address")).SendKeys("Moscow");
+            driver.FindElement(By.XPath("//input[@value='Update']")).Click();
+            return this;
         }
     }
+
 }

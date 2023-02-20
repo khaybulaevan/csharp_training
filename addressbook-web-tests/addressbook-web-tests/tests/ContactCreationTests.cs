@@ -15,14 +15,11 @@ namespace WebAddressbookTests
         [Test]
         public void ContactCreationTest()
         {
-            app.Navigator.OpenHomePage();
-            app.Auth.Login(new AccountData("admin", "secret"));
-            app.Contacts.GoToContactsPage();
             ContactData contact = new ContactData("Lev", "Tolstoy");
             contact.Lastname = "Nikolaevish";
-            app.Contacts.FillContactForm(contact);
-            app.Contacts.SubmitContactCreation();
-            app.Contacts.ReturnHomePage();
+            app.Contacts.Create(contact);
+            // Вызываем первый метод и тут же возвращается ссылка на помощник GroupHelper
+            
         }
 
     }

@@ -24,10 +24,11 @@ namespace WebAddressbookTests
 
             // Инициализируем ApplicationManager
             app = new ApplicationManager();
+            app.Navigator.OpenHomePage();
+            // Передаем не два значения вместе, а один объект
+            app.Auth.Login(new AccountData("admin", "secret"));
 
         }
-
-
 
         [TearDown]
         // Метод, который останавливает драйвер в конце
