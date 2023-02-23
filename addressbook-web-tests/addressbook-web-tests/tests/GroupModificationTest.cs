@@ -4,9 +4,7 @@ using System.Text.RegularExpressions;
 using System.Threading;
 using System.Xml.Linq;
 using NUnit.Framework;
-using OpenQA.Selenium;
-using OpenQA.Selenium.Chrome;
-using OpenQA.Selenium.Support.UI;
+
 
 
 namespace WebAddressbookTests
@@ -20,7 +18,10 @@ namespace WebAddressbookTests
         [Test]
         public void GroupModificationTest()
         {
-            app.Groups.Modify(1);
+            GroupData newData = new GroupData("zzz");
+            newData.Header = "ttt";
+            newData.Footer = "qqq";
+            app.Groups.Modify(1, newData);
 
         }
     }

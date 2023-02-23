@@ -39,17 +39,20 @@ namespace WebAddressbookTests
             return this;
         }
 
-        public GroupHelper Modify( int p)
+        public GroupHelper Modify( int p, GroupData newData)
         {
            manager.Navigator.GoToGroupsPage();
            SelectGroup(1);
-           ModifyGroup();
+           InitGrroupModification();
+           FillGroupForm(newData);
+           SubmitGroupModification();
+           ReturnToGroupsPage();
            return this;
 
         }
 
         // Чтобы умееньшить дублирование кода в тесте (GroupCreationTests) делаем так,
-        // чтомы методы  в GroupHelper возвращал тот же самый GroupHelper
+        // чтомы методы в GroupHelper возвращал тот же самый GroupHelper
         public GroupHelper InitGroupCreation()
         {
             driver.FindElement(By.Name("new")).Click();
@@ -93,16 +96,20 @@ namespace WebAddressbookTests
         public GroupHelper RemoveGroup()
 
         {
-            driver.FindElement(By.Name("delete")).Click(); ;
+            driver.FindElement(By.Name("delete")).Click();
             return this;
         }
 
-        public GroupHelper ModifyGroup()
+        public GroupHelper InitGrroupModification()
 
         {
             driver.FindElement(By.Name("edit")).Click();
-            driver.FindElement(By.Name("group_name")).Clear();
-            driver.FindElement(By.Name("group_name")).SendKeys("bbb");
+            return this;
+        }
+
+        public GroupHelper SubmitGroupModification()
+        {
+            driver.FindElement(By.Name("update")).Click();
             return this;
         }
 

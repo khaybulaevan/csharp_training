@@ -18,7 +18,7 @@ namespace WebAddressbookTests
             ContactData contact = new ContactData("Lev", "Tolstoy");
             contact.Lastname = "Nikolaevish";
             app.Contacts.Create(contact);
-            // Вызываем первый метод и тут же возвращается ссылка на помощник GroupHelper
+
             
         }
 

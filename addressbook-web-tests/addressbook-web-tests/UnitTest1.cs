@@ -2,6 +2,7 @@ using OpenQA.Selenium.DevTools.V107.Network;
 using System.Security.Cryptography;
 using System;
 using Microsoft.VisualStudio.TestPlatform;
+using NUnit.Framework;
 
 namespace addressbook_web_tests
 {

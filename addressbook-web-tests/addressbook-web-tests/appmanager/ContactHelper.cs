@@ -2,6 +2,8 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -34,10 +36,11 @@ namespace WebAddressbookTests
 
         }
 
-        public ContactHelper Modify()
+        public ContactHelper Modify( ContactData newData)
         {
             SelectContactToModify();
-            ContactModify();
+            ContactModify(newData);
+            SubmitContactModification();
             ReturnHomePage();
             return this;
 
@@ -84,7 +87,7 @@ namespace WebAddressbookTests
         }
 
 
-        private ContactHelper SelectContactToModify()
+        public ContactHelper SelectContactToModify()
 
         {
             driver.FindElement(By.XPath("//img[@alt='Edit']")).Click();
@@ -92,15 +95,22 @@ namespace WebAddressbookTests
         }
 
 
-        private ContactHelper ContactModify()
+        public ContactHelper ContactModify(ContactData newData)
 
         {
 
             driver.FindElement(By.Name("address")).Clear();
-            driver.FindElement(By.Name("address")).SendKeys("Moscow");
+            driver.FindElement(By.Name("address")).SendKeys(newData.Address);
+            return this;
+        }
+
+        public ContactHelper  SubmitContactModification()
+        {
+
             driver.FindElement(By.XPath("//input[@value='Update']")).Click();
             return this;
         }
+
     }
 
 }
