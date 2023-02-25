@@ -1,11 +1,11 @@
-﻿
-using OpenQA.Selenium;
+﻿using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Threading;
 
 namespace WebAddressbookTests
 {
@@ -22,8 +22,11 @@ namespace WebAddressbookTests
         protected GroupHelper groupHelper;
         protected ContactHelper contactHelper;
 
+        // Специальный объект, который будут устанавливать соотвествие между текущим потоком и объетом типа ApplicationManager
+        private static ThreadLocal<ApplicationManager> app  = new ThreadLocal<ApplicationManager>();
+
         // Инициализация
-        public ApplicationManager()
+        private ApplicationManager()
 
         {
             driver = new ChromeDriver();
@@ -37,17 +40,8 @@ namespace WebAddressbookTests
 
         }
 
-
-        public IWebDriver Driver
-        {
-            get 
-            {
-                return driver;            
-            }
-        
-        }
-
-        public void Stop()
+        // Создаем деструктор
+        ~ApplicationManager()
         {
             try
             {
@@ -59,6 +53,31 @@ namespace WebAddressbookTests
             }
         }
 
+
+
+       
+        // Глобальный метод, который может быть вызван не в конкретном объекте, а по его имени
+        public static ApplicationManager GetInstance()
+
+        {
+            // Для текущего потока внутри этого хранилища ничего пока еще ничего не созданано  - нужно создать
+            if (! app.IsValueCreated)
+            {
+                app.Value = new ApplicationManager();
+            }
+            // Если уже создано - ничего не делать
+            return app.Value;
+        }
+
+
+        public IWebDriver Driver
+        {
+            get 
+            {
+                return driver;            
+            }
+        
+        }
 
 
         // Добавляется свойство, чтобы не делать ссылки на вспомогательными методы public

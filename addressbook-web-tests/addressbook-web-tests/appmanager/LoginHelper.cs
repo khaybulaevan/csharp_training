@@ -22,11 +22,9 @@ namespace WebAddressbookTests
         // Login принимает один параметр типа AccountData
         public void Login(AccountData account)
         {
-            driver.FindElement(By.Name("user")).Clear();
             // Будут вводиться в поля значения свойств этого объекта
-            driver.FindElement(By.Name("user")).SendKeys(account.Username);
-            driver.FindElement(By.Name("pass")).Clear();
-            driver.FindElement(By.Name("pass")).SendKeys(account.Password);
+            Type(By.Name("user"), account.Username);
+            Type(By.Name("pass"), account.Password);
             driver.FindElement(By.XPath("//input[@value='Login']")).Click();
         }
 

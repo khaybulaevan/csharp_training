@@ -18,5 +18,14 @@ namespace WebAddressbookTests
             // HelperBase получает ссылку на драйвер у менеджера и далее этой ссылкой все могут пользоваться
             driver = manager.Driver;
         }
+
+        public void Type(By locator, string text)
+        {
+            if (text != null)
+            {
+                driver.FindElement(locator).Clear();
+                driver.FindElement(locator).SendKeys(text);
+            }
+        }
     }
 }

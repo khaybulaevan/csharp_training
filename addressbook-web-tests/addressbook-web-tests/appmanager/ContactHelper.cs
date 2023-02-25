@@ -49,12 +49,9 @@ namespace WebAddressbookTests
 
         public ContactHelper FillContactForm(ContactData contact)
         {
-            driver.FindElement(By.Name("firstname")).Clear();
-            driver.FindElement(By.Name("firstname")).SendKeys(contact.Firstname);
-            driver.FindElement(By.Name("middlename")).Clear();
-            driver.FindElement(By.Name("middlename")).SendKeys(contact.Middleame);
-            driver.FindElement(By.Name("lastname")).Clear();
-            driver.FindElement(By.Name("lastname")).SendKeys(contact.Lastname);
+            Type(By.Name("firstname"), contact.Firstname);
+            Type(By.Name("middlename"), contact.Middleame);
+            Type(By.Name("lastname"), contact.Lastname);
             return this;
 
         }
@@ -98,9 +95,7 @@ namespace WebAddressbookTests
         public ContactHelper ContactModify(ContactData newData)
 
         {
-
-            driver.FindElement(By.Name("address")).Clear();
-            driver.FindElement(By.Name("address")).SendKeys(newData.Address);
+            Type(By.Name("address"), newData.Address);
             return this;
         }
 

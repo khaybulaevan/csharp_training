@@ -19,22 +19,11 @@ namespace WebAddressbookTests
         public void SetupTest()
         {
 
+            
             // Инициализируем ApplicationManager
-            app = new ApplicationManager();
-            app.Navigator.OpenHomePage();
-            // Передаем не два значения вместе, а один объект
-            app.Auth.Login(new AccountData("admin", "secret"));
+            app = ApplicationManager.GetInstance();
 
         }
-
-        [TearDown]
-        // Метод, который останавливает драйвер в конце
-        public void TeardownTest()
-        {
-            app.Stop();
-
-        }
-
 
 
     }
