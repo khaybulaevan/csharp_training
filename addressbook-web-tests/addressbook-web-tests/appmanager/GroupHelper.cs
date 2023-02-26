@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 using OpenQA.Selenium;
@@ -29,25 +30,54 @@ namespace WebAddressbookTests
         }
 
 
-        public GroupHelper Remove(int p)
+        public GroupHelper Remove(int p, GroupData group)
         {
             // Navigator обращается к manager
             manager.Navigator.GoToGroupsPage();
-            SelectGroup(1);
-            RemoveGroup();
-            ReturnToGroupsPage();
-            return this;
+            if (IsElementPresent(By.Name("selected[]")))
+            {
+
+                SelectGroup(1);
+                RemoveGroup();
+                ReturnToGroupsPage();
+                return this;
+            }
+
+            else
+
+            {
+                InitGroupCreation();
+                FillGroupForm(group);
+                SubmitGroupCreation();
+                ReturnToGroupsPage();
+                return this;
+
+            }
         }
 
         public GroupHelper Modify( int p, GroupData newData)
         {
-           manager.Navigator.GoToGroupsPage();
-           SelectGroup(1);
-           InitGrroupModification();
-           FillGroupForm(newData);
-           SubmitGroupModification();
-           ReturnToGroupsPage();
-           return this;
+         manager.Navigator.GoToGroupsPage();
+
+            if (IsElementPresent(By.Name("selected[]")))
+                //(IsElementPresent(By.CssSelector("[name='checkbox']")))
+            { 
+                SelectGroup(1);
+                InitGroupModification();
+                FillGroupForm(newData);
+                SubmitGroupModification();
+                ReturnToGroupsPage();
+                return this;
+            }
+            else
+            {
+                InitGroupCreation();
+                FillGroupForm(newData);
+                SubmitGroupCreation();
+                ReturnToGroupsPage();
+                return this;
+
+            }
 
         }
 
@@ -61,7 +91,7 @@ namespace WebAddressbookTests
 
         public GroupHelper FillGroupForm(GroupData group)
         {
-     
+            
             // Передаем информацию не как набор полей, а как объект
             Type(By.Name("group_name"), group.Name);
             Type(By.Name("group_header"), group.Header);
@@ -87,9 +117,10 @@ namespace WebAddressbookTests
         public GroupHelper SelectGroup(int index)
 
         {
-            driver.FindElement(By.XPath("//div[@id='content']/form/span["+ index +"]/input")).Click();
+            driver.FindElement(By.XPath("//div[@id='content']/form/span[" + index + "]/input")).Click();
             return this;
         }
+
 
         public GroupHelper RemoveGroup()
 
@@ -98,7 +129,7 @@ namespace WebAddressbookTests
             return this;
         }
 
-        public GroupHelper InitGrroupModification()
+        public GroupHelper InitGroupModification()
 
         {
             driver.FindElement(By.Name("edit")).Click();

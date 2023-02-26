@@ -16,7 +16,7 @@ namespace WebAddressbookTests
 
         [SetUp]
         // Метод для инициализации
-        public void SetupTest()
+        public void SetupApplicationManager()
         {
 
             

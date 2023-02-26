@@ -54,8 +54,6 @@ namespace WebAddressbookTests
         }
 
 
-
-       
         // Глобальный метод, который может быть вызван не в конкретном объекте, а по его имени
         public static ApplicationManager GetInstance()
 
@@ -63,7 +61,12 @@ namespace WebAddressbookTests
             // Для текущего потока внутри этого хранилища ничего пока еще ничего не созданано  - нужно создать
             if (! app.IsValueCreated)
             {
-                app.Value = new ApplicationManager();
+                ApplicationManager newInstance = new ApplicationManager();
+                newInstance.Navigator.OpenHomePage();
+                // Присваиваем новый созданный объект в хранилиже ThreadLocal
+                app.Value = newInstance;
+                
+
             }
             // Если уже создано - ничего не делать
             return app.Value;

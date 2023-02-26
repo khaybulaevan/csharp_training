@@ -28,24 +28,51 @@ namespace WebAddressbookTests
 
         }
 
-        public ContactHelper Remove()
+        public ContactHelper Remove(ContactData contact)
+
         {
-            SelectContact();
-            RemoveContact();
-            return this;
+            if (IsElementPresent(By.CssSelector("[name='selected[]'][type='checkbox']")))
+            {
+                SelectContact();
+                RemoveContact();
+                return this;
+            }
+
+            else
+            {
+                manager.Navigator.GoToContactsPage();
+                FillContactForm(contact);
+                SubmitContactCreation();
+                ReturnHomePage();
+                return this;
+            }
 
         }
 
-        public ContactHelper Modify( ContactData newData)
+        public ContactHelper Modify(ContactData newData)
+
         {
-            SelectContactToModify();
-            ContactModify(newData);
-            SubmitContactModification();
-            ReturnHomePage();
-            return this;
+            if (IsElementPresent(By.CssSelector("[name='selected[]'][type='checkbox']")))
+            {
+                SelectContactToModify();
+                ContactModify(newData);
+                SubmitContactModification();
+                ReturnHomePage();
+                return this;
+            }
+
+            else
+            {
+                manager.Navigator.GoToContactsPage();
+                FillContactForm(newData);
+                SubmitContactCreation();
+                ReturnHomePage();
+                return this;
+            }
+
+
 
         }
-
 
         public ContactHelper FillContactForm(ContactData contact)
         {
@@ -95,6 +122,7 @@ namespace WebAddressbookTests
         public ContactHelper ContactModify(ContactData newData)
 
         {
+   
             Type(By.Name("address"), newData.Address);
             return this;
         }
