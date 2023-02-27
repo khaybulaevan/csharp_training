@@ -32,7 +32,6 @@ namespace WebAddressbookTests
             GroupData group = new GroupData("");
             group.Header = "";
             group.Footer = "";
-
             app.Groups.Create(group);
         }
         }

@@ -28,7 +28,7 @@ namespace WebAddressbookTests
 
         }
 
-        public ContactHelper Remove(ContactData contact)
+        public ContactHelper Remove()
 
         {
             if (IsElementPresent(By.CssSelector("[name='selected[]'][type='checkbox']")))
@@ -41,6 +41,8 @@ namespace WebAddressbookTests
             else
             {
                 manager.Navigator.GoToContactsPage();
+                ContactData contact = new ContactData("Naida", "Khaybulaeva");
+                contact.Lastname = "Mukh";
                 FillContactForm(contact);
                 SubmitContactCreation();
                 ReturnHomePage();

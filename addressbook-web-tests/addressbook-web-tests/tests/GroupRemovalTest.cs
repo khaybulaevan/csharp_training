@@ -18,10 +18,7 @@ namespace WebAddressbookTests
         [Test]
         public void GroupRemovalTest()
         {
-            GroupData group = new GroupData("ccc");
-            group.Header = "qqq";
-            group.Footer = "www";
-            app.Groups.Remove(1, group);
+            app.Groups.Remove(1);
         }
     }
 }

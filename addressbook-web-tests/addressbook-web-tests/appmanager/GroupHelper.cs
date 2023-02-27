@@ -30,7 +30,7 @@ namespace WebAddressbookTests
         }
 
 
-        public GroupHelper Remove(int p, GroupData group)
+        public GroupHelper Remove(int p)
         {
             // Navigator обращается к manager
             manager.Navigator.GoToGroupsPage();
@@ -47,6 +47,9 @@ namespace WebAddressbookTests
 
             {
                 InitGroupCreation();
+                GroupData group = new GroupData("ccc");
+                group.Header = "qqq";
+                group.Footer = "www";
                 FillGroupForm(group);
                 SubmitGroupCreation();
                 ReturnToGroupsPage();
