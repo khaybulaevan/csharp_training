@@ -4,6 +4,7 @@ using System.Text.RegularExpressions;
 using System.Threading;
 using System.Xml.Linq;
 using NUnit.Framework;
+using System.Collections.Generic;
 
 
 
@@ -22,7 +23,20 @@ namespace WebAddressbookTests
             group.Header = "ddd";
             group.Footer = "ccc";
 
+            List<GroupData> oldGroups = app.Groups.GetGroupList();
+
             app.Groups.Create(group);
+            // List - класс, контейнер или  колекция, то есть объект, который хранит набор других объктов
+            List<GroupData> newGroups = app.Groups.GetGroupList();
+
+            oldGroups.Add(group);
+            // Приводим к кононическому виду
+            oldGroups.Sort();
+            newGroups.Sort();
+            // Сравнение отсортированными списки 
+            Assert.AreEqual(oldGroups, newGroups);
+
+
 
         }
 
@@ -32,8 +46,43 @@ namespace WebAddressbookTests
             GroupData group = new GroupData("");
             group.Header = "";
             group.Footer = "";
+
+            List<GroupData> oldGroups = app.Groups.GetGroupList();
+
             app.Groups.Create(group);
+
+            List<GroupData> newGroups = app.Groups.GetGroupList();
+
+            oldGroups.Add(group);
+            oldGroups.Sort();
+            newGroups.Sort();
+            Assert.AreEqual(oldGroups, newGroups);
+
+
+
         }
+
+
+        [Test]
+        public void BadNameGroupCreationTest()
+        {
+            GroupData group = new GroupData("a'a");
+            group.Header = "";
+            group.Footer = "";
+
+            List<GroupData> oldGroups = app.Groups.GetGroupList();
+
+            app.Groups.Create(group);
+
+            List<GroupData> newGroups = app.Groups.GetGroupList();
+
+            oldGroups.Add(group);
+            oldGroups.Sort();
+            newGroups.Sort();
+            Assert.AreEqual(oldGroups, newGroups);
+
+
         }
+    }
 }
 

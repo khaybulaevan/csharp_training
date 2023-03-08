@@ -37,7 +37,7 @@ namespace WebAddressbookTests
             if (IsElementPresent(By.Name("selected[]")))
             {
 
-                SelectGroup(1);
+                SelectGroup(0);
                 RemoveGroup();
                 ReturnToGroupsPage();
                 return this;
@@ -58,14 +58,14 @@ namespace WebAddressbookTests
             }
         }
 
-        public GroupHelper Modify( int p, GroupData newData)
+        public GroupHelper Modify( GroupData newData)
         {
          manager.Navigator.GoToGroupsPage();
 
             if (IsElementPresent(By.Name("selected[]")))
                 //(IsElementPresent(By.CssSelector("[name='checkbox']")))
             { 
-                SelectGroup(1);
+                SelectGroup(0);
                 InitGroupModification();
                 FillGroupForm(newData);
                 SubmitGroupModification();
@@ -120,10 +120,17 @@ namespace WebAddressbookTests
         public GroupHelper SelectGroup(int index)
 
         {
-            driver.FindElement(By.XPath("//div[@id='content']/form/span[" + index + "]/input")).Click();
+            driver.FindElement(By.XPath("//div[@id='content']/form/span[" + (index + 1) + "]/input")).Click();
             return this;
         }
 
+        public bool ChekGroupForSelect()
+
+        {
+            if (IsElementPresent(By.CssSelector("[name='selected[]'")))
+                return true;
+            return false;
+        }
 
         public GroupHelper RemoveGroup()
 
@@ -145,5 +152,20 @@ namespace WebAddressbookTests
             return this;
         }
 
+        public  List<GroupData> GetGroupList()
+        {
+            List<GroupData> groups = new List<GroupData>();
+            manager.Navigator.GoToGroupsPage();
+            ICollection<IWebElement> elements = driver.FindElements(By.CssSelector("span.group"));
+            foreach (IWebElement element in elements)
+             {
+        
+                groups.Add(new GroupData(element.Text));
+
+             }
+
+            return groups;
+           
+        }
     }
 }
