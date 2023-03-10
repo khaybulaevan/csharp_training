@@ -29,22 +29,11 @@ namespace WebAddressbookTests
             if (!app.Groups.ChekGroupForSelect())
             {
 
-                app.Groups
-                .InitGroupCreation()
-                .FillGroupForm(newData)
-                .SubmitGroupCreation()
-               . ReturnToGroupsPage();
-
+                app.Groups.Create(newData);
             }
             List<GroupData> oldGroups = app.Groups.GetGroupList();
 
-            app.Groups
-            .SelectGroup(0)
-            .InitGroupModification()
-            .FillGroupForm(modifData)
-            .SubmitGroupModification()
-            .ReturnToGroupsPage();
-
+            app.Groups.Modify(modifData);
             //app.Groups.Modify(newData);
 
             List<GroupData> newGroups = app.Groups.GetGroupList();

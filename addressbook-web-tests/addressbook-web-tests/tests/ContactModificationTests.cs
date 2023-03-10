@@ -15,7 +15,6 @@ namespace WebAddressbookTests
     public class ContactModificationTests : AuthTestBase
     {
 
-
         [Test]
         public void ContactModificationTest()
         {
@@ -23,27 +22,14 @@ namespace WebAddressbookTests
             ContactData newData = new ContactData("Ivan", "Inamov");
             ContactData modifData = new ContactData("Petr", "Petrov");
 
-            //app.Navigator.GoToContactsPage();
-
-            //app.Contacts.Modify(newData);
-
             if (!app.Contacts.ChekContactForSelect())
             {
-                //app.Navigator.GoToContactsPage();
+                app.Contacts.Create(newData);
 
-                app.Navigator.GoToContactsPage();
-                app.Contacts
-                    .FillContactForm(newData)
-                    .SubmitContactCreation()
-                    .ReturnHomePage();
             }
            List<ContactData> oldContacts = app.Contacts.GetContactList();
 
-            app.Contacts
-               .SelectContact(0)
-               .FillContactForm(modifData)
-               .SubmitContactModification()
-               .ReturnHomePage();
+            app.Contacts.Modify(modifData);
 
             List<ContactData> newContacts = app.Contacts.GetContactList();
             oldContacts[i].Firstname = modifData.Firstname;

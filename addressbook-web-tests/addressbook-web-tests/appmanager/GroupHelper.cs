@@ -29,60 +29,27 @@ namespace WebAddressbookTests
             return this;
         }
 
-
-        public GroupHelper Remove(int p)
+        public GroupHelper Modify( GroupData group)
         {
-            // Navigator обращается к manager
-            manager.Navigator.GoToGroupsPage();
-            if (IsElementPresent(By.Name("selected[]")))
-            {
 
-                SelectGroup(0);
-                RemoveGroup();
-                ReturnToGroupsPage();
-                return this;
-            }
-
-            else
-
-            {
-                InitGroupCreation();
-                GroupData group = new GroupData("ccc");
-                group.Header = "qqq";
-                group.Footer = "www";
-                FillGroupForm(group);
-                SubmitGroupCreation();
-                ReturnToGroupsPage();
-                return this;
-
-            }
+            SelectGroup(1);
+            InitGroupModification();
+            FillGroupForm(group);
+            SubmitGroupModification();
+            ReturnToGroupsPage();
+            return this;
+           
         }
 
-        public GroupHelper Modify( GroupData newData)
+        public GroupHelper Remove()
         {
-         manager.Navigator.GoToGroupsPage();
-
-            if (IsElementPresent(By.Name("selected[]")))
-                //(IsElementPresent(By.CssSelector("[name='checkbox']")))
-            { 
-                SelectGroup(0);
-                InitGroupModification();
-                FillGroupForm(newData);
-                SubmitGroupModification();
-                ReturnToGroupsPage();
-                return this;
-            }
-            else
-            {
-                InitGroupCreation();
-                FillGroupForm(newData);
-                SubmitGroupCreation();
-                ReturnToGroupsPage();
-                return this;
-
-            }
-
+            SelectGroup(1);
+            RemoveGroup();
+            ReturnToGroupsPage();
+            return this;
         }
+
+
 
         // Чтобы умееньшить дублирование кода в тесте (GroupCreationTests) делаем так,
         // чтомы методы в GroupHelper возвращал тот же самый GroupHelper

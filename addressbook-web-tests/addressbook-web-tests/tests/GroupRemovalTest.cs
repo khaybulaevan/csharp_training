@@ -20,26 +20,19 @@ namespace WebAddressbookTests
         public void GroupRemovalTest()
 
         {
-            GroupData newdata = new GroupData("ccc");
-            newdata.Header = "qqq";
-            newdata.Footer = "www";
+            GroupData newData = new GroupData("ccc");
+            newData.Header = "qqq";
+            newData.Footer = "www";
 
             if (!app.Groups.ChekGroupForSelect())
 
             {
-                app.Groups
-                .InitGroupCreation()
-                .FillGroupForm(newdata)
-                .SubmitGroupCreation()
-                .ReturnToGroupsPage();
+                app.Groups.Create(newData);
             }
 
             List<GroupData> oldGroups = app.Groups.GetGroupList();
 
-            app.Groups
-            .SelectGroup(0)
-            .RemoveGroup()
-            .ReturnToGroupsPage();
+            app.Groups.Remove();
 
             //app.Groups.Remove(0);
 

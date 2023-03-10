@@ -7,6 +7,7 @@ using System.Reflection;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 
 namespace WebAddressbookTests
 {
@@ -29,56 +30,26 @@ namespace WebAddressbookTests
 
         }
 
+        public ContactHelper Modify(ContactData contact)
+        {
+            
+            SelectContact(0);
+            FillContactForm(contact);
+            SubmitContactModification();
+            ReturnHomePage();
+            return this;
+        }
+
         public ContactHelper Remove()
 
         {
-            if (IsElementPresent(By.CssSelector("[name='selected[]'][type='checkbox']")))
-            {
-                SelectContact(0);
-                RemoveContact();
-                return this;
-            }
-
-            else
-            {
-                manager.Navigator.GoToContactsPage();
-                ContactData contact = new ContactData("Naida", "Khaybulaeva");
-                contact.Lastname = "Mukh";
-                FillContactForm(contact);
-                SubmitContactCreation();
-                ReturnHomePage();
-                return this;
-            }
-
+             SelectContactToDelete(0);
+             RemoveContact();
+             return this;
         }
 
-        /*public ContactHelper Modify(ContactData newData)
 
-        {
-            if (IsElementPresent(By.CssSelector("[name='selected[]'][type='checkbox']")))
-            {
-                SelectContact(0);
-                ContactModify(newData);
-                SubmitContactModification();
-                ReturnHomePage();
-                return this;
-            }
-
-            else
-            {
-                manager.Navigator.GoToContactsPage();
-                FillContactForm(newData);
-                SubmitContactCreation();
-                ReturnHomePage();
-                return this;
-            }
-
-
-
-        }
-        */
-
-        public ContactHelper FillContactForm(ContactData contact)
+            public ContactHelper FillContactForm(ContactData contact)
         {
             Type(By.Name("firstname"), contact.Firstname);
             Type(By.Name("middlename"), contact.Middleame);
@@ -128,14 +99,6 @@ namespace WebAddressbookTests
         }
 
 
-        public ContactHelper ContactModify(ContactData newData)
-
-        {
-   
-            Type(By.Name("address"), newData.Address);
-            return this;
-        }
-
         public ContactHelper  SubmitContactModification()
         {
 
@@ -146,7 +109,6 @@ namespace WebAddressbookTests
         public  List<ContactData> GetContactList()
         {
             List<ContactData> contacts = new List<ContactData>();
-            //manager.Navigator.GoToContactsPage();
             ICollection<IWebElement> elements = driver.FindElements(By.CssSelector("tr[name='entry']"));
 
             foreach (IWebElement element in elements)

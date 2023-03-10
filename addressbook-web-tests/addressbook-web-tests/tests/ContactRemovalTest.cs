@@ -12,7 +12,6 @@ namespace WebAddressbookTests
     public class ContactRemovalTests : AuthTestBase
     {
 
-
         [Test]
         public void ContactRemovalTest()
         {
@@ -21,19 +20,12 @@ namespace WebAddressbookTests
 
             if (!app.Contacts.ChekContactForSelect())
             {
-
-                app.Navigator.GoToContactsPage();
-                app.Contacts
-                    .FillContactForm(contact)
-                    .SubmitContactCreation()
-                    .ReturnHomePage();
+                app.Contacts.Create(contact);
             }
 
             List<ContactData> oldContacts = app.Contacts.GetContactList();
 
-            app.Contacts
-                .SelectContactToDelete(0)
-                .RemoveContact();
+            app.Contacts.Remove();
 
             List<ContactData> newContacts = app.Contacts.GetContactList();
             oldContacts.RemoveAt(0);

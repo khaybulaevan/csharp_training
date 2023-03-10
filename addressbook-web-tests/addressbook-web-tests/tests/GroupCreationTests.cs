@@ -36,8 +36,6 @@ namespace WebAddressbookTests
             // Сравнение отсортированными списки 
             Assert.AreEqual(oldGroups, newGroups);
 
-
-
         }
 
         [Test]
@@ -58,10 +56,7 @@ namespace WebAddressbookTests
             newGroups.Sort();
             Assert.AreEqual(oldGroups, newGroups);
 
-
-
         }
-
 
         [Test]
         public void BadNameGroupCreationTest()
@@ -80,8 +75,6 @@ namespace WebAddressbookTests
             oldGroups.Sort();
             newGroups.Sort();
             Assert.AreEqual(oldGroups, newGroups);
-
-
         }
     }
 }
