@@ -11,14 +11,12 @@ namespace WebAddressbookTests
     // чтобы можно было списки сортировать, нужно описать как сравниваются между собой элементы типа GroupData. Для этого добавляем интерфейс IComparable
     public class GroupData : IEquatable<GroupData>, IComparable<GroupData>
     {
-        private string name;
-        private string header = "";
-        private string footer = "";
+
 
         public GroupData(string name)
 
         {
-            this.name = name;
+            Name = name;
         }
         // Функция, которая реализует это сравнение. В качестве параметра принимает другой объект типа
         // Стандартный метод Equals
@@ -64,48 +62,13 @@ namespace WebAddressbookTests
         }
 
         // Свойство
-        public string Name
+        public string Name { get; set; }
 
+        public string Header { get; set; }
 
-        {
-            get
-            {
+        public string Footer { get; set; }
 
-                return name;
-            }
-            set
-
-            {
-                name = value;
-            }
-        }
-
-        public string Header
-        {
-            get
-            {
-                return header;
-            }
-
-            set
-            {
-                header = value;
-            }
-
-        }
-        public string Footer
-        {
-            get
-            {
-                return footer;
-            }
-            set
-            {
-                footer = value;
-            }
-
-        }
-
+        public string Id { get; set; }
     }
 }
 

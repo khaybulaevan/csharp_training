@@ -8,38 +8,14 @@ namespace WebAddressbookTests
 {
     public class ContactData : IEquatable<ContactData>, IComparable<ContactData>
     {
-        private string firstname;
-        private string lastname;
-        // Значения по умолчанию - пусто
-        private string middlename = "";
-        private string nickname = "";
-        private string photo = "";
-        private string company = "";
-        private string title = "";
-        private string address = "";
-        private string home = "";
-        private string mobile = "";
-        private string work = "";
-        private string fax = "";
-        private string email = "";
-        private string email2 = ""; 
-        private string email3 = "";
-        private string homepage = "";
-        private int? bday = null;
-        private string bmonth = "";
-        private int?  byear = null;
-        private int?  aday = null;
-        private string amonth = "";
-        private string new_group = ""; 
+
 
         public ContactData(string firstname, string lastname)
 
         {
-            this.firstname = firstname;
-            this.lastname = lastname; 
-        
+            Firstname = firstname;
+            Lastname = lastname;
         }
-
         public bool Equals(ContactData other)
         {
             if (Object.ReferenceEquals(other, null))
@@ -50,7 +26,7 @@ namespace WebAddressbookTests
             {
                 return true;
             }
-            return Firstname == other.Firstname 
+            return Firstname == other.Firstname
                 && Lastname == other.Lastname;
         }
 
@@ -78,352 +54,56 @@ namespace WebAddressbookTests
                 return Lastname.CompareTo(other.Lastname);
             }
             return compareResult;
-
-        }
-        
-        public string Firstname
-
-        {
-            get
-            {
-                return firstname;
-            }
-            set
-            {
-                firstname = value; 
-            }
-             
-            }
-        public string Middleame
-
-        {
-            get
-            {
-                return middlename;
-            }
-            set
-            {
-                middlename = value;
-            }
-
-        }
-        public string Lastname
-
-        {
-            get
-
-            {
-                return lastname;
-            }
-
-            set
-
-            {
-                lastname = value;
-            }
         }
 
-        public string Nikname
+        public string Firstname { get; set; }
 
-        {
-            get
+        public string Middleame { get; set; }
 
-            {
-                return nickname;
-            }
+        public string Lastname { get; set; }
 
-            set
+        public string Nikname { get; set; }
 
-            {
-                nickname = value;
-            }
-        }
-        public string Photo
+        public string Photo { get; set; }
 
-        {
-            get
+        public string Company { get; set; }
 
-            {
-                return photo;
-            }
+        public string Title { get; set; }
 
-            set
+        public string Address { get; set; }
 
-            {
-                photo = value;
-            }
-        }
-        public string Company
+        public string Home { get; set; }
 
-        {
-            get
+        public string Mobile { get; set; }
 
-            {
-                return company;
-            }
+        public string Work { get; set; }
 
-            set
+        public string Fax { get; set; }
 
-            {
-                company = value;
-            }
-        }
+        public string Email { get; set; }
 
-        public string Title
+        public string Email2 { get; set; }
 
-        {
-            get
+        public string Email3 { get; set; }
 
-            {
-                return title;
-            }
+        public string Homepage { get; set; }
 
-            set
+        public int? Bday { get; set; }
 
-            {
-                title = value;
-            }
-        }
+        public string Bmonth { get; set; }
 
-        public string Address
+        public int? Byear { get; set; }
 
-        {
-            get
+        public int? Aday { get; set; }
 
-            {
-                return address;
-            }
+        public string Amonth { get; set; }
 
-            set
-
-            {
-                address = value;
-            }
-        }
-        public string Home
-
-        {
-            get
-
-            {
-                return home;
-            }
-
-            set
-
-            {
-                home = value;
-            }
-        }
-
-        public string Mobile
-
-        {
-            get
-
-            {
-                return mobile;
-            }
-
-            set
-
-            {
-                mobile = value;
-            }
-        }
-
-        public string Work
-
-        {
-            get
-
-            {
-                return work;
-            }
-
-            set
-
-            {
-                work = value;
-            }
-        }
-
-        public string Fax
-
-        {
-            get
-
-            {
-                return fax;
-            }
-
-            set
-
-            {
-                fax = value;
-            }
-        }
-
-        public string Email
-
-        {
-            get
-
-            {
-                return email;
-            }
-
-            set
-
-            {
-                email = value;
-            }
-        }
-
-        public string Email2
-
-        {
-            get
-
-            {
-                return email2;
-            }
-
-            set
-
-            {
-                email2 = value;
-            }
-        }
-        public string Email3
-
-        {
-            get
-
-            {
-                return email3;
-            }
-
-            set
-
-            {
-                email3 = value;
-            }
-        }
-        public string Homepage
-
-        {
-            get
-
-            {
-                return homepage;
-            }
-
-            set
-
-            {
-                homepage = value;
-            }
-        }
-
-        public int? Bday
-
-        {
-            get
-
-            {
-                return bday;
-            }
-
-            set
-
-            {
-                bday = value;
-            }
-        }
-
-        public string Bmonth
-
-        {
-            get
-            {
-                return bmonth;
-            }
-            set
-            {
-                bmonth = value;
-            }
-
-         
-
-        }
-
-        public int? Byear
-
-        {
-            get
-            {
-                return byear;
-            }
-            set
-            {
-                byear = value;
-            }
-
-
-
-        }
-
-        public int? Aday
-
-        {
-            get
-            {
-                return aday;
-            }
-            set
-            {
-                aday = value;
-            }
-
-
-
-        }
-        public string  Amonth
-
-        {
-            get
-            {
-                return amonth;
-            }
-            set
-            {
-                amonth = value;
-            }
-
-
-
-        }
-
-
-        public string New_group
-
-        {
-            get
-            {
-                return new_group;
-            }
-            set
-            {
-                new_group = value;
-            }
-
-
-
-        }
-      
+        public string New_group { get; set; }
 
     }
 }
+
+
+  
 
 

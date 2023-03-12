@@ -32,15 +32,25 @@ namespace WebAddressbookTests
                 app.Groups.Create(newData);
             }
             List<GroupData> oldGroups = app.Groups.GetGroupList();
+            GroupData oldData = oldGroups[0];
 
             app.Groups.Modify(modifData);
-            //app.Groups.Modify(newData);
+
+            Assert.AreEqual(oldGroups.Count, app.Groups.GetGroupCount());
 
             List<GroupData> newGroups = app.Groups.GetGroupList();
             oldGroups[0].Name = modifData.Name;
             oldGroups.Sort();
             newGroups.Sort();
             Assert.AreEqual(oldGroups, newGroups);
+
+            foreach (GroupData group in newGroups)
+            {
+                if (group.Id == oldData.Id)
+                {
+                   Assert.AreEqual( modifData.Name, group.Name);
+                }
+            }
 
         }
     }
