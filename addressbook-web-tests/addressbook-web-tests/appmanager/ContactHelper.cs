@@ -113,10 +113,9 @@ namespace WebAddressbookTests
 
             foreach (IWebElement element in elements)
             {
-                string[] contactsFL = element.Text.Split(new char[] { ' ' });
-                contacts.Add(new ContactData(contactsFL[1], contactsFL[0]));
+                IList<IWebElement> cells = element.FindElements(By.TagName("td"));
+                contacts.Add(new ContactData(cells[2].Text, cells[1].Text));
             }
-
             return contacts;
         }
     }

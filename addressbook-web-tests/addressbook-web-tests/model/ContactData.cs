@@ -50,7 +50,8 @@ namespace WebAddressbookTests
             {
                 return true;
             }
-            return Firstname == other.Firstname && Lastname == other.Lastname;
+            return Firstname == other.Firstname 
+                && Lastname == other.Lastname;
         }
 
         public override int GetHashCode()
@@ -70,10 +71,16 @@ namespace WebAddressbookTests
             {
                 return 1;
             }
+            int compareResult = Lastname.CompareTo(other.Lastname);
 
-            return (Firstname.CompareTo(other.Firstname) + Lastname.CompareTo(other.Lastname));
-        
+            if (compareResult == 0)
+            {
+                return Lastname.CompareTo(other.Lastname);
+            }
+            return compareResult;
+
         }
+        
         public string Firstname
 
         {
