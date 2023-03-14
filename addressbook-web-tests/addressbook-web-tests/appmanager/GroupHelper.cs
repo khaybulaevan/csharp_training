@@ -32,7 +32,7 @@ namespace WebAddressbookTests
         public GroupHelper Modify( GroupData group)
         {
 
-            SelectGroup(1);
+            SelectGroup(0);
             InitGroupModification();
             FillGroupForm(group);
             SubmitGroupModification();
