@@ -20,7 +20,9 @@ namespace WebAddressbookTests
         public void GroupCreationTest()
         {
             GroupData group = new GroupData("aaa");
-            group.Header = "ddd";
+            group.Header = @"d\dd""
+d
+d";
             group.Footer = "ccc";
 
             List<GroupData> oldGroups = app.Groups.GetGroupList();

@@ -11,7 +11,7 @@ namespace WebAddressbookTests
     public  class LoginTests :TestBase
     {
         [Test]
-        public void LoginWithValidCredention()
+        public void LoginWithValidCredentials()
 
         {
             // Подготовка
@@ -27,7 +27,7 @@ namespace WebAddressbookTests
         }
 
         [Test]
-        public void LoginWithInvalidCredention()
+        public void LoginWithInvalidCredentials()
 
         {
             // Подготовка

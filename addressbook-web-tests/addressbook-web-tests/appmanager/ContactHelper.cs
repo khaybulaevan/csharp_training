@@ -1,11 +1,13 @@
 ﻿using OpenQA.Selenium;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Reflection;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Xml.Linq;
 
@@ -96,6 +98,13 @@ namespace WebAddressbookTests
             return this;
         }
 
+        public ContactHelper InitDeteilsInformations(int index)
+        {
+            driver.FindElement(By.XPath("(//img[@alt='Details'])[" + (index + 1) + "]")).Click();
+            //driver.FindElement(By.XPath("//img[@alt='Details'])[" + (index + 1) +"]")).Click();
+            return this;
+        }
+
 
         public ContactHelper  SubmitContactModification()
         {
@@ -119,6 +128,63 @@ namespace WebAddressbookTests
                 }
             }
             return new List<ContactData>(contactCache);
+        }
+
+        public ContactData GetContacInformationFromTable(int index)
+        {
+            manager.Navigator.OpenHomePage();
+            IList<IWebElement> cells = driver.FindElements(By.Name("entry"))[index]
+                .FindElements(By.TagName("td"));
+            string lastname = cells[1].Text;
+            string firstname = cells[2].Text;
+            string address = cells[3].Text;
+            string allPhones = cells[5].Text;
+
+            return new ContactData(firstname, lastname)
+            {
+                Address = address,
+                AllPhones = allPhones
+ 
+            };
+
+
+        }
+
+        public ContactData GetContacInformationFromEditForm(int index)
+        {
+            manager.Navigator.OpenHomePage();
+            SelectContact(0);
+            string firstname = driver.FindElement(By.Name("firstname")).GetAttribute("value");
+            string lastname = driver.FindElement(By.Name("lastname")).GetAttribute("value");
+            string address = driver.FindElement(By.Name("address")).GetAttribute("value");
+
+            string homePhone = driver.FindElement(By.Name("home")).GetAttribute("value");
+            string mobilePhone = driver.FindElement(By.Name("mobile")).GetAttribute("value");
+            string workPhone = driver.FindElement(By.Name("work")).GetAttribute("value");
+
+            return new ContactData(firstname, lastname)
+            {
+                Address = address,
+                HomePhone = homePhone,
+                MobilePhone = mobilePhone,
+                WorkPhone = workPhone
+            };
+
+        }
+        public int GetNumberOfSearshResults()
+        {
+            string text = driver.FindElement(By.TagName("label")).Text;
+            Match m= new Regex(@"\d+").Match(text);
+            return Int32.Parse(m.Value);
+
+        }
+
+        public string GetContacInformationFromDetails(int index)
+        {
+            manager.Navigator.OpenHomePage();
+            InitDeteilsInformations(index);
+            string contentDetails = driver.FindElement(By.Id("content")).Text;
+            return contentDetails;
         }
     }
 

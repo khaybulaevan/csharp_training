@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Principal;
 using System.Text;
 using System.Threading.Tasks;
 using NUnit.Framework;
@@ -57,8 +58,15 @@ namespace WebAddressbookTests
         public bool IsLoggedIn(AccountData account)
         {
             return IsLoggedIn()
-                && driver.FindElement(By.Name("logout")).FindElement(By.TagName("b")).Text
-                == "(" + account.Username + ")";
+                && GetLoggetUserName() == account.Username;
+
+        }
+
+        public  string GetLoggetUserName()
+        {
+            string text =  driver.FindElement(By.Name("logout")).FindElement(By.TagName("b")).Text;
+            // Substring режит кусочек. Принимае два параметра: начало (индексация начинается с 0) и сколько символов нужно извлечь
+            return text.Substring(1, text.Length - 2);
 
         }
     }
