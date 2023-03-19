@@ -10,8 +10,8 @@ namespace WebAddressbookTests;
 public class ContactData : IEquatable<ContactData>, IComparable<ContactData>
 {
     private string allPhones;
-    private string allDetails;
-    private string fio;
+    //private string allDetails;
+    //private string fio;
 
     public ContactData(string firstname, string lastname)
 
@@ -103,7 +103,7 @@ public class ContactData : IEquatable<ContactData>, IComparable<ContactData>
 
     public string New_group { get; set; }
 
-
+/*
     public string FIO
     {
         get
@@ -125,7 +125,7 @@ public class ContactData : IEquatable<ContactData>, IComparable<ContactData>
             fio = value;
         }
     }
-
+*/
     public string AllPhones
     {
 
@@ -149,7 +149,7 @@ public class ContactData : IEquatable<ContactData>, IComparable<ContactData>
     }
 
 
-    public string AllDetails
+  /*  public string AllDetails
 
     {
         get
@@ -171,8 +171,9 @@ public class ContactData : IEquatable<ContactData>, IComparable<ContactData>
         {
             allDetails = value;
         }
-
+  
     }
+  */
     private string CleanUp(string phone)
     {
         if (phone == null || phone == "")
@@ -184,6 +185,7 @@ public class ContactData : IEquatable<ContactData>, IComparable<ContactData>
 
     }
 
+   /*
     private string AddCaret(string data)
     {
         if (data == null || data == "")
@@ -192,6 +194,7 @@ public class ContactData : IEquatable<ContactData>, IComparable<ContactData>
         }
         return data + "\r\n";
     }
+   */
 
 
 }
