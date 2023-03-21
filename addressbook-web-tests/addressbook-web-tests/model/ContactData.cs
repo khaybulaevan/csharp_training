@@ -40,7 +40,7 @@ public class ContactData : IEquatable<ContactData>, IComparable<ContactData>
 
     public override string ToString()
     {
-        return Firstname + Lastname;
+        return "Firstname" +  Firstname + "\nLastname" + Lastname + "\nMiddlename" + Middlename;
     }
 
 
@@ -61,7 +61,7 @@ public class ContactData : IEquatable<ContactData>, IComparable<ContactData>
 
     public string Firstname { get; set; }
 
-    public string Middleame { get; set; }
+    public string Middlename { get; set; }
 
     public string Lastname { get; set; }
 

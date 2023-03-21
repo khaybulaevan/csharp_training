@@ -48,7 +48,7 @@ namespace WebAddressbookTests
         // Метод ToString() переопределяет стандартный метод реализованный во всех классах, то нужно пометить ключевым словом override
         public override string ToString()
         {
-            return "name = " + Name;
+            return "name = " + Name + "\nheader  = " + Header + "\nfooter = "  + Footer ;
         }
 
         // Функция  сравнения
