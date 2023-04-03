@@ -20,7 +20,7 @@ namespace addressbook_test_data_generators
     {
         static void Main(string[] args)
         {
-            // count - Количево тетсовых данных, которыу хотим сгенерировать
+            // count - количество тетсовых данных, которые хотим сгенерировать
             string datatype = args[0];
             int count = Convert.ToInt32(args[1]);
             string filename = args[2];
@@ -73,12 +73,12 @@ namespace addressbook_test_data_generators
 
         }
 
-        private static void writeContactsToJsonFile(List<ContactData> contacts, StreamWriter writer)
+        static void writeContactsToJsonFile(List<ContactData> contacts, StreamWriter writer)
         {
             writer.Write(JsonConvert.SerializeObject(contacts, Newtonsoft.Json.Formatting.Indented));
         }
 
-        private static void writeContactsToXmlFile(List<ContactData> contacts, StreamWriter writer)
+        static void writeContactsToXmlFile(List<ContactData> contacts, StreamWriter writer)
         {
             new XmlSerializer(typeof(List<ContactData>)).Serialize(writer, contacts);
         }
@@ -92,7 +92,6 @@ namespace addressbook_test_data_generators
         static void writeGroupsToJsonFile(List<GroupData> groups, StreamWriter writer)
 
         {
-
             writer.Write(JsonConvert.SerializeObject(groups,  Newtonsoft.Json.Formatting.Indented));
 
         }
