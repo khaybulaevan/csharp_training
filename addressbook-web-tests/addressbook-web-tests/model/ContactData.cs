@@ -149,39 +149,39 @@ public class ContactData : IEquatable<ContactData>, IComparable<ContactData>
     }
 
 
-  /*  public string AllDetails
+    /*  public string AllDetails
 
-    {
-        get
-        {
-            if (AllDetails != null)
-            {
-                return AllDetails;
-            }
-            else
-            {
-                return (AddCaret(FIO)
-                        + AddCaret(Address)
-                        + AddCaret(HomePhone)
-                        + AddCaret(MobilePhone)
-                        + AddCaret(WorkPhone).Trim());
-            }
-        }
-        set
-        {
-            allDetails = value;
-        }
-  
-    }
-  */
-    private string CleanUp(string phone)
+      {
+          get
+          {
+              if (AllDetails != null)
+              {
+                  return AllDetails;
+              }
+              else
+              {
+                  return (AddCaret(FIO)
+                          + AddCaret(Address)
+                          + AddCaret(HomePhone)
+                          + AddCaret(MobilePhone)
+                          + AddCaret(WorkPhone).Trim());
+              }
+          }
+          set
+          {
+              allDetails = value;
+          }
+
+      }
+    */
+    public string CleanUp(string phone)
     {
         if (phone == null || phone == "")
 
         {
             return "";
         }
-        return Regex.Replace(phone, "[- ()]", "") + "\r\n";
+        return Regex.Replace(phone, "[ -()]", "") + "\r\n";
 
     }
 

@@ -10,7 +10,6 @@ namespace WebAddressbookTests
     [TestFixture]
     public  class ContactInformationTests : AuthTestBase
     {
-
         [Test]
         public void TestContactInformation()
         {
