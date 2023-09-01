@@ -98,13 +98,12 @@ namespace WebAddressbookTests
             return this;
         }
 
-        /*
+        
         public ContactHelper InitDeteilsInformations(int index)
         {
             driver.FindElement(By.XPath("(//img[@alt='Details'])[" + (index + 1) + "]")).Click();
             return this;
         }
-        */
 
 
         public ContactHelper  SubmitContactModification()
@@ -179,14 +178,15 @@ namespace WebAddressbookTests
 
         }
 
-      /*  public string GetContacInformationFromDetails(int index)
+       public string  GetContacInformationFromDetails(int index)
         {
             manager.Navigator.OpenHomePage();
             InitDeteilsInformations(index);
             string contentDetails = driver.FindElement(By.Id("content")).Text;
             return contentDetails;
+
+
         }
-      */
     }
 
 }
