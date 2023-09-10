@@ -29,24 +29,37 @@ namespace WebAddressbookTests
             return this;
         }
 
-        public GroupHelper Modify( GroupData group)
+        public GroupHelper Modify( GroupData group, GroupData modifData)
         {
 
-            SelectGroup(0);
+            SelectGroup(group.Id);
             InitGroupModification();
-            FillGroupForm(group);
+            FillGroupForm(modifData);
             SubmitGroupModification();
             ReturnToGroupsPage();
             return this;
            
         }
 
-        public GroupHelper Remove()
+        public GroupHelper Remove(int index)
         {
+            manager.Navigator.GoToGroupsPage();
+
             SelectGroup(0);
             RemoveGroup();
             ReturnToGroupsPage();
             return this;
+        }
+
+        public GroupHelper Remove(GroupData group)
+        {
+            manager.Navigator.GoToGroupsPage();
+
+            SelectGroup(group.Id);
+            RemoveGroup();
+            ReturnToGroupsPage();
+            return this;
+
         }
 
         // Чтобы умееньшить дублирование кода в тесте (GroupCreationTests) делаем так,
@@ -85,6 +98,13 @@ namespace WebAddressbookTests
 
         {
             driver.FindElement(By.XPath("//div[@id='content']/form/span[" + (index + 1) + "]/input")).Click();
+            return this;
+        }
+
+        public GroupHelper SelectGroup(String id)
+
+        {
+            driver.FindElement(By.XPath("(//input[@name='selected[]' and @value='"+id+"'])")).Click();
             return this;
         }
 
@@ -162,5 +182,7 @@ namespace WebAddressbookTests
         {
            return driver.FindElements(By.CssSelector("span.group")).Count;
         }
+
+      
     }
 }

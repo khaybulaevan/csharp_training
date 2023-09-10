@@ -10,7 +10,7 @@ namespace WebAddressbookTests
 {
     public class TestBase
     {
-
+        public static bool PERFORM_LONG_UI_CHECKS = false;
         protected ApplicationManager app;
 
 
@@ -18,8 +18,6 @@ namespace WebAddressbookTests
         // Метод для инициализации
         public void SetupApplicationManager()
         {
-
-            
             // Инициализируем ApplicationManager
             app = ApplicationManager.GetInstance();
 

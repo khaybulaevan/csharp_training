@@ -1,17 +1,23 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Globalization;
 using System.Linq;
 using System.Text;
-using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using LinqToDB.Mapping;
+using System.Text.RegularExpressions;
+
 namespace WebAddressbookTests;
 
+[Table(Name = "addressbook")]
 public class ContactData : IEquatable<ContactData>, IComparable<ContactData>
 {
     private string allPhones;
     private string allDetails;
     private string fio;
+
+    public ContactData()
+
+    {
+    }
 
     public ContactData(string firstname, string lastname)
 
@@ -40,7 +46,7 @@ public class ContactData : IEquatable<ContactData>, IComparable<ContactData>
 
     public override string ToString()
     {
-        return "Firstname" +  Firstname + "\nLastname" + Lastname + "\nMiddlename" + Middlename;
+        return "Firstname" + Firstname + "\nLastname" + Lastname + "\nMiddlename" + Middlename;
     }
 
 
@@ -58,50 +64,51 @@ public class ContactData : IEquatable<ContactData>, IComparable<ContactData>
         }
         return compareResult;
     }
-
+    [Column(Name = "firstname")]
     public string Firstname { get; set; }
-
+    [Column(Name = "middlename")]
     public string Middlename { get; set; }
-
+    [Column(Name = "lastname")]
     public string Lastname { get; set; }
-
+    [Column(Name = "nickname")]
     public string Nikname { get; set; }
-
+    [Column(Name = "photo")]
     public string Photo { get; set; }
-
+    [Column(Name = "company")]
     public string Company { get; set; }
-
+    [Column(Name = "title")]
     public string Title { get; set; }
-
+    [Column(Name = "address")]
     public string Address { get; set; }
-
+    [Column(Name = "home")]
     public string HomePhone { get; set; }
-
+    [Column(Name = "mobile")]
     public string MobilePhone { get; set; }
-
+    [Column(Name = "work")]
     public string WorkPhone { get; set; }
-
+    [Column(Name = "fax")]
     public string Fax { get; set; }
-
+    [Column(Name = "email")]
     public string Email { get; set; }
-
+    [Column(Name = "email2")]
     public string Email2 { get; set; }
-
+    [Column(Name = "email3")]
     public string Email3 { get; set; }
-
+    [Column(Name = "homepage")]
     public string Homepage { get; set; }
-
+    [Column(Name = "bday")]
     public int? Bday { get; set; }
-
+    [Column(Name = "bmonth")]
     public string Bmonth { get; set; }
-
-    public int? Byear { get; set; }
-
+    [Column(Name = "byear")]
+    public string Byear { get; set; }
+    [Column(Name = "aday")]
     public int? Aday { get; set; }
-
+    [Column(Name = "amonth")]
     public string Amonth { get; set; }
-
     public string New_group { get; set; }
+    [Column(Name = "id")]
+    public string Id { get; set; }
 
 
     public string FIO
@@ -195,6 +202,15 @@ public class ContactData : IEquatable<ContactData>, IComparable<ContactData>
         return data + "\r\n";
     }
 
+
+    public static List<ContactData> GetAll()
+    {
+        // При использовании конструкции using метод закрытия Close() будет вызываться в конце автоматически и не надо писать db.Close()
+        using (AddressBookDb db = new AddressBookDb())
+        {
+            return (from c in db.Contacts select c).ToList();
+        }
+    }
 
 
 }

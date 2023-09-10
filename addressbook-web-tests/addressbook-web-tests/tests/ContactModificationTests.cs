@@ -27,11 +27,11 @@ namespace WebAddressbookTests
                 app.Contacts.Create(newData);
 
             }
-           List<ContactData> oldContacts = app.Contacts.GetContactList();
+            List<ContactData> oldContacts = ContactData.GetAll();
+            ContactData contactToModify = oldContacts[0];
+            app.Contacts.Modify(contactToModify, modifData);
 
-            app.Contacts.Modify(modifData);
-
-            List<ContactData> newContacts = app.Contacts.GetContactList();
+            List<ContactData> newContacts = ContactData.GetAll();
             oldContacts[i].Firstname = modifData.Firstname;
             oldContacts[i].Lastname = modifData.Lastname;
             oldContacts.Sort();

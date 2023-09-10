@@ -1,14 +1,17 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using LinqToDB.Mapping;
 
 namespace WebAddressbookTests
 {
+
     // Класс содержит инфомацию об имени
     // Класс наследуется от IEquatable. Его можно сравнивать с другми объектами типа GroupData
     // чтобы можно было списки сортировать, нужно описать как сравниваются между собой элементы типа GroupData. Для этого добавляем интерфейс IComparable
+
+    [Table(Name = "group_list")]
     public class GroupData : IEquatable<GroupData>, IComparable<GroupData>
     {
 
@@ -67,13 +70,22 @@ namespace WebAddressbookTests
         }
 
         // Свойство
+        [Column(Name = "group_name")]
         public string Name { get; set; }
-
+        [Column(Name = "group_header")]
         public string Header { get; set; }
-
+        [Column(Name = "group_footer")]
         public string Footer { get; set; }
-
+        [Column(Name = "group_id"), PrimaryKey, Identity]
         public string Id { get; set; }
+
+        public static List<GroupData> GetAll() {
+            // При использовании конструкции using метод закрытия Close() будет вызываться в конце автоматически и не надо писать db.Close()
+            using (AddressBookDb db = new AddressBookDb())
+            {
+                return (from g in db.Groups select g).ToList();
+            }
+        }
     }
 }
 

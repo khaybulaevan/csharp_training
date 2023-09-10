@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Threading;
+using OpenQA.Selenium.Edge;
 
 namespace WebAddressbookTests
 {
@@ -29,7 +30,7 @@ namespace WebAddressbookTests
         private ApplicationManager()
 
         {
-            driver = new ChromeDriver();
+            driver = new EdgeDriver("E:\\tools");
             baseURL = "http://localhost/addressbook";
 
 

@@ -9,7 +9,7 @@ using NUnit.Framework.Constraints;
 namespace WebAddressbookTests
 {
     [TestFixture]
-    public class GroupModificationTests : AuthTestBase
+    public class GroupModificationTests : GroupTestBase
     {
 
 
@@ -21,8 +21,8 @@ namespace WebAddressbookTests
             newData.Header = null;
             newData.Footer = null;
             GroupData modifData = new GroupData("ppp");
-            newData.Header = null;
-            newData.Footer = null;
+            modifData.Header = null;
+            modifData.Footer = null;
 
             app.Navigator.GoToGroupsPage();
 
@@ -31,14 +31,14 @@ namespace WebAddressbookTests
 
                 app.Groups.Create(newData);
             }
-            List<GroupData> oldGroups = app.Groups.GetGroupList();
-            GroupData oldData = oldGroups[0];
+            List<GroupData> oldGroups = GroupData.GetAll();
+            GroupData groupToModif = oldGroups[0];
 
-            app.Groups.Modify(modifData);
+            app.Groups.Modify(groupToModif, modifData);
 
             Assert.AreEqual(oldGroups.Count, app.Groups.GetGroupCount());
 
-            List<GroupData> newGroups = app.Groups.GetGroupList();
+            List<GroupData> newGroups = GroupData.GetAll();
             oldGroups[0].Name = modifData.Name;
             oldGroups.Sort();
             newGroups.Sort();
@@ -46,7 +46,7 @@ namespace WebAddressbookTests
 
             foreach (GroupData group in newGroups)
             {
-                if (group.Id == oldData.Id)
+                if (group.Id == groupToModif.Id)
                 {
                    Assert.AreEqual( modifData.Name, group.Name);
                 }
