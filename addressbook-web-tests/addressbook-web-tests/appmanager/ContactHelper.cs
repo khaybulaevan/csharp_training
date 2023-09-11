@@ -34,7 +34,7 @@ namespace WebAddressbookTests
         public ContactHelper Modify(ContactData contact, ContactData modifyData)
         {
             SelectContactToModify(contact.Id);
-            SelectContact(0);
+            SelectContact(contact.Id);
             FillContactForm(modifyData);
             SubmitContactModification();
             ReturnHomePage();
@@ -98,7 +98,7 @@ namespace WebAddressbookTests
 
         private ContactHelper SelectContact(string id)
         {
-            driver.FindElement(By.XPath("(//input[@name='selected[]' and @value = '"+id+"'])")).Click();
+            driver.FindElement(By.XPath("(//img[@alt='Edit' and '"+id+"'])")).Click();
             return this;
         }
 
