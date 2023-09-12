@@ -1,11 +1,13 @@
-﻿using OpenQA.Selenium;
+﻿using Microsoft.Office.Interop.Excel;
+using NUnit.Framework.Constraints;
+using OpenQA.Selenium;
+using OpenQA.Selenium.Support.UI;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Reflection;
-using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
@@ -33,8 +35,8 @@ namespace WebAddressbookTests
 
         public ContactHelper Modify(ContactData contact, ContactData modifyData)
         {
-            SelectContactToModify(contact.Id);
             SelectContact(contact.Id);
+            EditSelectedContact(contact.Id);
             FillContactForm(modifyData);
             SubmitContactModification();
             ReturnHomePage();
@@ -51,7 +53,7 @@ namespace WebAddressbookTests
 
         public ContactHelper Remove(ContactData contact)
         {
-            SelectContact(contact.Id);
+            EditSelectedContact(contact.Id);
             RemoveContact();
             return this;
         }
@@ -82,9 +84,9 @@ namespace WebAddressbookTests
             return this;
         }
 
-        public ContactHelper SelectContactToModify(string id)
+        public ContactHelper SelectContact(string id)
         {
-            driver.FindElement(By.XPath("(//input[@name='selected[]' and @value = '" + id + "'])")).Click();
+            driver.FindElement(By.XPath("(//input[@name='selected[]' and '" +id+ "'])")).Click();
             return this;
         }
 
@@ -96,7 +98,7 @@ namespace WebAddressbookTests
             return this;
         }
 
-        private ContactHelper SelectContact(string id)
+        private ContactHelper EditSelectedContact(string id)
         {
             driver.FindElement(By.XPath("(//img[@alt='Edit' and '"+id+"'])")).Click();
             return this;
@@ -207,6 +209,53 @@ namespace WebAddressbookTests
             return contentDetails;
 
 
+        }
+
+        public void AddContactToGroup(ContactData contact, GroupData group)
+        {
+            manager.Navigator.OpenHomePage();
+            ClearGroupFilter();
+            SelectContact(contact.Id);
+            SelectGroupToAdd(group.Name);
+            CommitAddingContactToGroup();
+            new WebDriverWait(driver, TimeSpan.FromSeconds(10))
+                .Until(d => d.FindElements(By.CssSelector("div.msgbox")).Count > 0);
+        }
+
+        private void CommitAddingContactToGroup()
+        {
+            driver.FindElement(By.Name("add")).Click();
+        }
+
+        private void SelectGroupToAdd(string name)
+        {
+            new SelectElement(driver.FindElement(By.Name("to_group"))).SelectByText(name);
+        }
+
+        private void ClearGroupFilter()
+        {
+            new SelectElement(driver.FindElement(By.Name("group"))).SelectByText("[all]");
+        }
+
+        public void RemoveContactFromGroup(ContactData contact, GroupData group)
+        {
+            manager.Navigator.OpenHomePage();
+            SelectGroupToRemove(group.Id);
+            SelectContact(contact.Id);
+            CommitRemovalContactToGroup();
+            new WebDriverWait(driver, TimeSpan.FromSeconds(10))
+                .Until(d => d.FindElements(By.CssSelector("div.msgbox")).Count > 0);
+
+        }
+
+        private void CommitRemovalContactToGroup()
+        {
+            driver.FindElement(By.Name("remove")).Click();
+        }
+
+        public void SelectGroupToRemove(string id)
+        {
+            new SelectElement(driver.FindElement(By.Name("group"))).SelectByValue(id);
         }
     }
 

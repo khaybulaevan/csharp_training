@@ -56,7 +56,7 @@ namespace WebAddressbookTests
         // Метод ToString() переопределяет стандартный метод реализованный во всех классах, то нужно пометить ключевым словом override
         public override string ToString()
         {
-            return "name = " + Name + "\nheader  = " + Header + "\nfooter = "  + Footer ;
+            return "name = " + Name + "\n header  = " + Header + "\n footer = "  + Footer ;
         }
 
         // Функция  сравнения
@@ -84,6 +84,16 @@ namespace WebAddressbookTests
             using (AddressBookDb db = new AddressBookDb())
             {
                 return (from g in db.Groups select g).ToList();
+            }
+        }
+        // Метод, который по группе будет получать список контактов, в которую в нее входят
+        public List<ContactData> GetContacts()
+        {
+            using (AddressBookDb db = new AddressBookDb())
+            {
+                return (from c in db.Contacts
+                            from gcr in db.GCR.Where(p => p.GroupId == Id && p.ContactId == c.Id && c.Deprecated == "0000-00-00 00:00:00")
+                            select c).Distinct().ToList();
             }
         }
     }

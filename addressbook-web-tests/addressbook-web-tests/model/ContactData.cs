@@ -46,8 +46,8 @@ public class ContactData : IEquatable<ContactData>, IComparable<ContactData>
 
     public override string ToString()
     {
-        return "Firstname" + Firstname + "\nLastname" + Lastname + "\nMiddlename" + Middlename;
-    }
+        return "Firstname" + Firstname + "\n Lastname" + Lastname + "\n Middlename" + Middlename;
+    } 
 
 
     public int CompareTo(ContactData other)
@@ -107,8 +107,11 @@ public class ContactData : IEquatable<ContactData>, IComparable<ContactData>
     [Column(Name = "amonth")]
     public string Amonth { get; set; }
     public string New_group { get; set; }
-    [Column(Name = "id")]
+    [Column(Name = "id"), PrimaryKey]
     public string Id { get; set; }
+
+    [Column(Name ="deprecated")]
+    public string Deprecated { get; set; }
 
 
     public string FIO
@@ -208,7 +211,7 @@ public class ContactData : IEquatable<ContactData>, IComparable<ContactData>
         // При использовании конструкции using метод закрытия Close() будет вызываться в конце автоматически и не надо писать db.Close()
         using (AddressBookDb db = new AddressBookDb())
         {
-            return (from c in db.Contacts select c).ToList();
+            return (from c in db.Contacts.Where(x => x.Deprecated == "0000-00-00 00:00:00") select c).ToList();
         }
     }
 
