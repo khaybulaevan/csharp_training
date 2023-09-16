@@ -53,7 +53,7 @@ namespace WebAddressbookTests
 
         public ContactHelper Remove(ContactData contact)
         {
-            EditSelectedContact(contact.Id);
+            SelectContact(contact.Id);
             RemoveContact();
             return this;
         }
@@ -86,10 +86,9 @@ namespace WebAddressbookTests
 
         public ContactHelper SelectContact(string id)
         {
-            driver.FindElement(By.XPath("(//input[@name='selected[]' and '" +id+ "'])")).Click();
+            driver.FindElement(By.XPath("(//input[@name='selected[]' and @value='" + id + "'])")).Click();
             return this;
         }
-
 
 
         public ContactHelper SelectContactToDelete(int index)
@@ -100,7 +99,7 @@ namespace WebAddressbookTests
 
         private ContactHelper EditSelectedContact(string id)
         {
-            driver.FindElement(By.XPath("(//img[@alt='Edit' and '"+id+"'])")).Click();
+            driver.FindElement(By.XPath("//input[@name='selected[]' and @value='" + id + "']//ancestor::tr//img[@title='Edit']")).Click();
             return this;
         }
 
