@@ -20,6 +20,7 @@ namespace mantis_tests
         {
             // Инициализируем ApplicationManager
             app = ApplicationManager.GetInstance();
+            app.Auth.Login(new AccountData("administrator", "root"));
 
         }
 

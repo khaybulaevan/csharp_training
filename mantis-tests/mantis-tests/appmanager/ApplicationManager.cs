@@ -6,7 +6,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Threading;
-using OpenQA.Selenium.Edge;
+using Microsoft.IdentityModel.Logging;
+using NUnit.Framework.Constraints;
 
 namespace mantis_tests
 {
@@ -17,7 +18,9 @@ namespace mantis_tests
         protected  string baseURL;
         public RegisrtationHelper Registration { get; }
         public FtpHelper Ftp { get; set; }
-
+        public ProjectHelper projectHelper;
+        public NavigationHelper navigator;
+        private LoginHelper loginHelper;
 
 
         // Специальный объект, который будут устанавливать соотвествие между текущим потоком и объетом типа ApplicationManager
@@ -28,10 +31,12 @@ namespace mantis_tests
 
         {
             driver = new EdgeDriver();
-            baseURL = "http://localhost/mantisbt-2.25.7/login_page.php";
+            baseURL = "http://localhost/mantisbt-1.3.20/login_page.php";
             Registration = new RegisrtationHelper(this);
             Ftp = new FtpHelper(this);
-
+            navigator = new NavigationHelper(this, baseURL);
+            projectHelper = new ProjectHelper(this);
+            loginHelper = new LoginHelper(this);
 
         }
 
@@ -57,7 +62,7 @@ namespace mantis_tests
             if (! app.IsValueCreated)
             {
                 ApplicationManager newInstance = new ApplicationManager();
-                newInstance.driver.Url = "http://localhost/mantisbt-2.25.7/login_page.php?";
+                newInstance.driver.Url = "http://localhost/mantisbt-1.3.20/login_page.php";
                 // Присваиваем новый созданный объект в хранилиже ThreadLocal
                 app.Value = newInstance;
                 
@@ -75,6 +80,30 @@ namespace mantis_tests
                 return driver;            
             }
         
+        }
+
+        public ProjectHelper Projects
+        {
+            get {
+                return projectHelper;
+            }
+        }
+
+        public NavigationHelper Navigator
+        {
+            get
+            {
+                return navigator;
+            }
+
+        }
+        public LoginHelper Auth
+        {
+            get
+            {
+                return loginHelper;
+            }
+
         }
 
     }
